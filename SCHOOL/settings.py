@@ -24,12 +24,7 @@ SECRET_KEY = 'django-insecure-wxpis2!#v^)fdgxv^pt4c=2dcldp-l@u&ktbel0d7sm&7!e&6j
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# DEBUG = False
-
 DEBUG = True
-
-# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
 
 ALLOWED_HOSTS = []
 
@@ -46,9 +41,11 @@ INSTALLED_APPS = [
     'student',
     'teacher',
     'course',
-    'class',
+    'classroom',
     'rest_framework',
     'classperiod',
+
+    
 ]
 
 MIDDLEWARE = [

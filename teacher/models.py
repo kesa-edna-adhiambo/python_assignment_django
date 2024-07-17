@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.manager import BaseManager
+
 
 # Create your models here.
 class Teacher(models.Model):
@@ -12,6 +14,9 @@ class Teacher(models.Model):
     subject = models.CharField(max_length=20, default='Mathematics')
     id_number = models.PositiveSmallIntegerField(default=12345)
     mode_of_payment = models.CharField(max_length=20, default='Cash')
+
+    objects : BaseManager ["Teacher"]
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.db.models.manager import BaseManager
+
 # Create your models here.
 class Course(models.Model):
     name_of_course = models.CharField(max_length = 20)
@@ -12,6 +14,8 @@ class Course(models.Model):
     course_requirements = models.CharField(max_length = 20)
     year_introduced = models.IntegerField()
     amount_per_semester = models.IntegerField(default=0, null=False)
+
+    objects : BaseManager ["Course"]
 
     def __str__(self):
         return f"{self.name_of_course} {self.number_of_units}"

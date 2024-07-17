@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.manager import BaseManager
 
 # Create your models here.
 class Student(models.Model):
@@ -11,6 +12,9 @@ class Student(models.Model):
     class_name = models.CharField(max_length=20, default='Lovelace ')
     subject = models.CharField(max_length=20, default='JavaScript')
     enrollment_year = models.PositiveSmallIntegerField(default=2024)
+
+
+    objects : BaseManager ["Student"]
     # student_image = models.ImageField()
 
     def __str__(self):
