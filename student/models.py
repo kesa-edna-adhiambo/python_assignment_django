@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.manager import BaseManager
+from course.models import Course
 
 # Create your models here.
 class Student(models.Model):
@@ -12,6 +13,7 @@ class Student(models.Model):
     class_name = models.CharField(max_length=20, default='Lovelace ')
     subject = models.CharField(max_length=20, default='JavaScript')
     enrollment_year = models.PositiveSmallIntegerField(default=2024)
+    courses = models.ManyToManyField(Course)
 
 
     objects : BaseManager ["Student"]

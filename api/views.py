@@ -21,12 +21,22 @@ from course.models import Course
 
 
 class StudentListView(APIView):
+
     def get(self, request):
         students = Student.objects.all()
+        first_name = request.query_params.get("first_name")
+        country = request.query_params.get("country")
+        if first_name:
+            students = students.filter(first_name = first_name)
+
+        if country:
+            country = students.filter(country = country)
+
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
 
     def post(self, request):
+
         serializer = StudentSerializer(data=request.data)  
         if serializer.is_valid():
             serializer.save()
@@ -55,7 +65,19 @@ class StudentDetailView(APIView):
         student.delete()
         return Response(status = status.HTTP_202_ACCEPTED)
 
+    def enroll_student(self, student, course_id):
+        course = Course.objects.get(id = course_id)
+        student.courses.add(course)
 
+    def post(self, request_id):
+        student = Student.objects.get(id = id)
+        action = request.data.get("action")
+        if action == "enroll":
+            course_id = request.data.get("course")
+            self.enroll_student(student, course_id)
+
+        return Response(status.HTTP_201_ACCEPTED)
+        
 
 
 class ClassPeriodListView(APIView):
