@@ -157,6 +157,13 @@ class ClassroomDetailView(APIView):
 class TeacherListView(APIView):
     def get(self , request):
         teachers = Teacher.objects.all()
+        first_name = request.query_params.get("first_name")
+        subject = request.query_params.get("subject")
+        if first_name:
+           teachers = teachers.filter(first_name = first_name)
+
+        if subject:
+            subject = teachers.filter(country = country)
         serializer = TeacherSerializer(teachers, many = True)
         return Response(serializer.data)
 
@@ -188,6 +195,20 @@ class TeacherDetailView(APIView):
         teacher = Teacher.objects.get(id=id)
         teacher.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+    def enroll_teacher(self, teacher, course_id):
+        classroom = Classroom.objects.get(id = classroom_id)
+        teacher.classrooms.add(classroom)
+
+    def post(self, request_id):
+        teacher =Teacher.objects.get(id = id)
+        action = request.data.get("action")
+        if action == "enroll":
+            classroom_id = request.data.get("classroom")
+            self.enroll_teacher(teacher, classroom_id)
+
+        return Response(status.HTTP_201_ACCEPTED)
 
 
 class CourseListView(APIView):

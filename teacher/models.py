@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models.manager import BaseManager
+from classroom.models import Classroom
+
 
 
 # Create your models here.
@@ -14,6 +16,8 @@ class Teacher(models.Model):
     subject = models.CharField(max_length=20, default='Mathematics')
     id_number = models.PositiveSmallIntegerField(default=12345)
     mode_of_payment = models.CharField(max_length=20, default='Cash')
+    classrooms = models.ManyToManyField(Classroom)
+
 
     objects : BaseManager ["Teacher"]
 
